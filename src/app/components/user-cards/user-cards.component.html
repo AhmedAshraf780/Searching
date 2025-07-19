@@ -1,0 +1,52 @@
+<div class="container mt-5">
+
+  <!-- Search Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="mb-3">Users</h1>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search by Email" [(ngModel)]="searchText">
+        <button class="btn btn-success btn-lg" type="button">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Cards -->
+  <div class="row">
+    @for (item of filteredUsers; track item.email) {
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm w-100" style="border: 4px solid rgb(30, 118, 115); border-radius: 30px;">
+
+          <img [src]="item.image" class="card-img-top rounded-circle p-3" alt="User Image" style="height: 200px; object-fit: cover;">
+
+          <div class="card-header text-center text-white" [ngClass]="{
+            'bg-danger': item.role === 'admin',
+            'bg-success': item.role === 'user',
+            'bg-warning text-dark': item.role === 'moderator'
+          }">
+            <span class="badge rounded-pill" [ngClass]="{
+              'bg-danger': item.role === 'admin',
+              'bg-success': item.role === 'user',
+              'bg-warning text-dark': item.role === 'moderator'
+            }">
+              {{ item.role | titlecase }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <p class="card-text"><strong>Username:</strong> {{item.username}}</p>
+            <p class="card-text"><strong>Email:</strong> {{item.email}}</p>
+            <p class="card-text"><strong>Phone:</strong> {{item.phone}}</p>
+            <p class="card-text"><strong>Birthdate:</strong> {{item.birthDate}}</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    @empty {
+      <div class="col-12 text-center mt-5">
+        <h1>No Users Found</h1>
+      </div>
+    }
+  </div>
+</div>
